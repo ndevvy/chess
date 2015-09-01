@@ -39,7 +39,14 @@ class Display
     else
       bg = :black
     end
-    { background: bg }
+
+    if board[i,j].color == :white
+      color = :white
+    elsif board[i,j].color == :black
+      color = :black
+    end
+
+    { background: bg color: color }
   end
 
   def render

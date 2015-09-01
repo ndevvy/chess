@@ -17,6 +17,9 @@ class Piece
     @pos = pos
   end
 
+  def mov_into_check?
+    # dup board and perform move; see if player is in check after move
+  end
 
 
   def is_enemy?(pos)
@@ -32,7 +35,7 @@ class Piece
 end
 
 class Pawn < Piece
-DIFFS = {
+  DIFFS = {
   up: [-1, 0],
   down: [1, 0],
   upright:  [-1, 1],
@@ -41,7 +44,7 @@ DIFFS = {
   downright: [1, 1]
 }
 
-  def initialize
+  def initialize(color, pos, board)
     super
     @first_move = true
     @direction = color == :white ? :up : :down
@@ -58,14 +61,14 @@ DIFFS = {
   end
 
   def to_s
-    color == white ? "\u2659".encode('utf-8') : "\u265F".encode('utf-8')
+    color == :white ? "\u2659".encode('utf-8') : "\u265F".encode('utf-8')
   end
 
 
 end
 
 class SteppingPiece < Piece
-DIFFS = []
+  DIFFS = []
 
   def possible_moves
     self.class::DIFFS.map do |diff|
@@ -118,11 +121,11 @@ end
 class Queen < SlidingPiece
   def initialize(color, pos, board)
     super
-    @directions = MOVE_DIFFS.keys
+    @directions = DIFFS.keys
   end
 
   def to_s
-    color == white ? "\u2655".encode('utf-8') : "\u265B".encode('utf-8')
+    color == :white ? "\u2655".encode('utf-8') : "\u265B".encode('utf-8')
   end
 end
 
@@ -133,12 +136,12 @@ class Rook < SlidingPiece
   end
 
   def to_s
-    color == white ? "\u2656".encode('utf-8') : "\u265C".encode('utf-8')
+    color == :white ? "\u2656".encode('utf-8') : "\u265C".encode('utf-8')
   end
 end
 
 
-end
+
 
 class Bishop < SlidingPiece
   def initialize(color, pos, board)
@@ -147,19 +150,17 @@ class Bishop < SlidingPiece
   end
 
   def to_s
-    color == white ? "\u2657".encode('utf-8') : "\u265D".encode('utf-8')
+    color == :white ? "\u2657".encode('utf-8') : "\u265D".encode('utf-8')
   end
 end
 
-
-end
 
 class King < SteppingPiece
   DIFFS = [[1, 1], [1, 0], [1, -1], [0, -1],
            [-1, -1], [-1, 0], [-1, 1], [0, 1]]
 
   def to_s
-    color == white ? "\u2654".encode('utf-8') : "\u265A".encode('utf-8')
+    color == :white ? "\u2654".encode('utf-8') : "\u265A".encode('utf-8')
   end
 end
 
@@ -168,7 +169,7 @@ class Knight < SteppingPiece
            [1, -2], [1, 2], [-1, -2], [-1, 2]]
 
    def to_s
-     color == white ? "\u2658".encode('utf-8') : "\u265E".encode('utf-8')
+     color == :white ? "\u2658".encode('utf-8') : "\u265E".encode('utf-8')
    end
 
 end
