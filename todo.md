@@ -1,6 +1,7 @@
 * helper method for Pawn to ad DIFFS to position
 * display captured pcs
-* move Piece files
+* display turns (use arrow)
+
 * refactor Board?
   * setup hash
 

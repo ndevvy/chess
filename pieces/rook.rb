@@ -6,6 +6,7 @@ class Rook < Piece
     @directions = [:left, :right, :up, :down]
   end
 
+
   def to_s
     "\u265C".encode('utf-8')
   end
