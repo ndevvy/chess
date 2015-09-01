@@ -1,10 +1,14 @@
 require_relative 'display.rb'
 
 class Player
-  def initialize(name = "Player One", board)
+
+  attr_reader :color, :board
+
+  def initialize(name = "Player One", board, color)
     @name = name
     @board = board
     @display = Display.new(board)
+    @color = color
   end
 
   def get_move
@@ -19,13 +23,13 @@ class HumanPlayer < Player
     begin
       start_pos, end_pos = nil, nil
 
-      until start_pos
+      until start_pos && board[start_pos].color == self.color
         @display.render(errors)
         start_pos = @display.get_input
       end
 
       @board[start_pos].flagged = true
-      highlighted = @board[start_pos].moves || []
+      highlighted = @board[start_pos].valid_moves || []
       highlighted.each do |valid|
         @board[valid].flagged = true
       end

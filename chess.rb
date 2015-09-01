@@ -6,8 +6,8 @@ class Chess
 
   def initialize
     @board = Board.new
-    @player_one = HumanPlayer.new("player1", @board)
-    @player_two = HumanPlayer.new("player2", @board)
+    @player_one = HumanPlayer.new("player1", @board, :white)
+    @player_two = HumanPlayer.new("player2", @board, :black)
     @current_player = player_one
   end
 
@@ -16,6 +16,7 @@ class Chess
       @current_player.get_move
       switch_players!
     end
+    puts "Checkmate!"
   end
 
 
@@ -28,14 +29,13 @@ class Chess
   end
 
   def game_over?
-    false
+    board.checkmate?(:white) || board.checkmate?(:black)
   end
 
 end
 
 if __FILE__ == $PROGRAM_NAME
-  a = Board.new
-  game = Chess.new
+  # a = Board.new
   # queen = Queen.new(:white, [4,5], a)
   # a[[4,5]] = queen
   # a[[5,5]] = Bishop.new(:black, [5,5], a)
@@ -53,7 +53,14 @@ if __FILE__ == $PROGRAM_NAME
   #    a[pos].flagged = true
   # end
   # Display.new(game.board).render
-  # game.play
-  puts a.find_king(:white)
+  game = Chess.new
+  game.play
+  # testboard = TestBoard.new(a)
+  #
+  # a.move([1,1], [2,1])
+  #
+  # Display.new(a).render
+  #
+  # Display.new(testboard).render
 
 end

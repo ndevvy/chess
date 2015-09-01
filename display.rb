@@ -23,9 +23,14 @@ class Display
   end
 
   def build_row(row, i)
+    rowstring = "#{8 - i} "
     row.map.with_index do |piece, j|
       color_options = colors_for(i,j)
-      " #{piece.to_s} ".colorize(color_options)
+      if j == 0
+        rowstring + " #{piece.to_s} ".colorize(color_options)
+      else
+        " #{piece.to_s} ".colorize(color_options)
+      end
     end
   end
 
@@ -52,6 +57,7 @@ class Display
   def render(errors=[])
     system("clear")
     build_grid.each {|row| puts row.join}
+    puts "   A  B  C  D  E  F  G  H"
     errors.each do |error|
       puts error
     end
