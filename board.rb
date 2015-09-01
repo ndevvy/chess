@@ -10,21 +10,17 @@ class Board
 
 
   def move(start, end_pos)
-
-      raise BadMoveError.new unless self[start].moves.include?(end_pos)
+      raise BadMoveError.new unless self[start].valid_moves.include?(end_pos)
 
       self[end_pos] = self[start]
       self[start] = EmptySquare.new
       self[end_pos].pos = end_pos
       self[end_pos].first_move = false #refactor - can do both of these lines in 1 method in Piece
-
-
-    # raise BadMoveError.new, "there's nothing at #{start}" if self[start].is_a?(EmptySquare)
-
-    #
-    # raise BadMoveError.new, "can't move there" unless self[start].valid_move(end_pos)?
-    #return true or false to PLayer depending on if move succeeded
   end
+
+  # make a testboard with piece moved
+  # move pc on testboard
+  # in_check?(current color)
 
   def setup
     # if color == white
@@ -51,15 +47,13 @@ class Board
     setup_piece(:black, [0,4], King)
 
     setup_piece(:white, [7,0], Rook)
-    setup_piece(:white, [7,6], Rook)
+    setup_piece(:white, [7,7], Rook)
     setup_piece(:white, [7,1], Knight)
-    setup_piece(:white, [7,7], Knight)
+    setup_piece(:white, [7,6], Knight)
     setup_piece(:white, [7,2], Bishop)
     setup_piece(:white, [7,5], Bishop)
     setup_piece(:white, [7,3], Queen)
     setup_piece(:white, [7,4], King)
-
-
 
 
   end
@@ -73,6 +67,13 @@ class Board
       return true if piece.moves.include?(find_king(color))
     end
     false
+  end
+
+  def checkmate?(color)
+    each_piece_with_pos do |piece, pos|
+      return false if piece.color == color && !piece.valid_moves.empty?
+    end
+    true
   end
 
   def find_king(color)
@@ -113,13 +114,29 @@ class Board
 end
 
 class BadMoveError < StandardError
+end
 
 class TestBoard < Board
 
   def initialize(board)
-    # setup with duped pieces
+    @board = board
+    @grid = Array.new(8) { Array.new (8) { EmptySquare.new } }
+    setup
   end
 
-end
+  def setup
+    @board.each_piece_with_pos do |piece, pos|
+      setup_piece(piece.color, piece.pos, piece.class)
+    end
+  end
+
+  def move(start, end_pos)
+      raise BadMoveError.new unless self[start].moves.include?(end_pos)
+
+      self[end_pos] = self[start]
+      self[start] = EmptySquare.new
+      self[end_pos].pos = end_pos
+      self[end_pos].first_move = false #refactor - can do both of these lines in 1 method in Piece
+  end
 
 end

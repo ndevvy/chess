@@ -18,8 +18,16 @@ class Piece
     @pos = pos
   end
 
-  def move_into_check?
-    # dup board and perform move; see if player is in check after move
+  def move_into_check?(end_pos)
+    dupedboard = TestBoard.new(board)
+    dupedboard.move(self.pos, end_pos)
+    dupedboard.in_check?(self.color)
+  end
+
+  def valid_moves
+    moves.reject do |move|
+      move_into_check?(move)
+    end
   end
 
   def dup
@@ -130,7 +138,6 @@ module Slidable
         current_pos = move_in_direction(current_pos, direction)
       end
         valids << current_pos if is_enemy?(current_pos)
-        puts "#{current_pos} is enemy: #{is_enemy?(current_pos)}"
     end
     valids.uniq - [pos]
   end
