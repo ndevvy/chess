@@ -33,7 +33,7 @@ class Display
     if [i,j] == @cursor_pos
       bg = :red
     elsif board[[i, j]].flagged
-      bg = :blue
+      bg = :yellow
     elsif (i+j).odd?
       bg = :light_blue
     else
@@ -49,9 +49,12 @@ class Display
     { background: bg, color: color }
   end
 
-  def render
+  def render(errors=[])
     system("clear")
     build_grid.each {|row| puts row.join}
+    errors.each do |error|
+      puts error
+    end
 
     nil
   end
