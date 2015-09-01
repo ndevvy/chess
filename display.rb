@@ -25,7 +25,7 @@ class Display
   def build_row(row, i)
     row.map.with_index do |piece, j|
       color_options = colors_for(i,j)
-      piece.to_s.colorize(color_options)
+      " #{piece.to_s} ".colorize(color_options)
     end
   end
 
@@ -35,18 +35,18 @@ class Display
     elsif board[[i, j]].flagged
       bg = :blue
     elsif (i+j).odd?
-      bg = :light_white
+      bg = :light_blue
     else
-      bg = :black
+      bg = :green
     end
 
-    if board[i,j].color == :white
+    if board[[i,j]].color == :white
       color = :white
-    elsif board[i,j].color == :black
+    elsif board[[i,j]].color == :black
       color = :black
     end
 
-    { background: bg color: color }
+    { background: bg, color: color }
   end
 
   def render

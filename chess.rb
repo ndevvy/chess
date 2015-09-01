@@ -40,11 +40,11 @@ if __FILE__ == $PROGRAM_NAME
   # a[[5,5]] = Bishop.new(:black, [5,5], a)
   # bishop = Bishop.new(:white, [4, 4], a)
   # rook = Rook.new(:white, [1,3], a)
-  knight = Knight.new(:white, [4, 4], a)
-
-  valid = knight.valid_moves
-  valid.each do |pos|
-    a[pos].flagged = true
-  end
+  # knight = Knight.new(:white, [4, 4], a)
+  #
+  # valid = knight.valid_moves
+  # valid.each do |pos|
+  # #   a[pos].flagged = true
+  # end
   Display.new(game.board).render
 end
