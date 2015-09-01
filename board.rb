@@ -1,4 +1,4 @@
-require_relative 'piece.rb'
+require './pieces/pieces-manifest.rb'
 
 class Board
   attr_accessor :grid
