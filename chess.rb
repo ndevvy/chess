@@ -14,7 +14,7 @@ class Chess
   def play
     until game_over?
       @current_player.get_move
-      switch_players!
+      # switch_players!
     end
     puts "Checkmate!"
   end
