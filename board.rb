@@ -1,6 +1,8 @@
 require './pieces/pieces-manifest.rb'
+require_relative 'castleable.rb'
 
 class Board
+  include Castleable
   attr_accessor :grid
 
   def initialize
@@ -17,29 +19,16 @@ class Board
       self[end_pos].pos = end_pos
       self[end_pos].first_move = false #refactor - can do both of these lines in 1 method in Piece
 
-      if castle(start, end_pos)
-
+      if king_castled(start, end_pos)
+        p "the king castled from {#{start} to #{end_pos}}\n"
+        king_info = king_castled(start, end_pos)
+        move_rook_after_castle(king_info)
+        p "i feel like i moved the rook using #{king_info}"
       end
   end
 
-  def castle(start, end_pos)
-    output = []
-    return false unless self[start].is_a?(King)
-    if start[1] - end_pos[1] == 2
-      output << :right
-    elsif start[1] - end_pos[1] == -2
-      output << :left
-    else
-      false
-    end
-    output << self[start].color
-  end
 
-  def castle_rook(direction)
-    if direction == :right
-    else
-    end
-  end
+  #wishlist:  rook[:white, :right] = [correct coordinates]
 
   # make a testboard with piece moved
   # move pc on testboard
