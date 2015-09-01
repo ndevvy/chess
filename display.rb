@@ -5,16 +5,14 @@ require_relative 'board.rb'
 class Display
   include Cursor
   attr_reader :board
-  attr_accessor :cursor
+  attr_accessor :cursor, :selected
 
   def initialize(board)
     @board = board
     @cursor_pos = [0,0]
-    @selected = false
+    @selected = nil
   end
 
-  #white queen starts on d1
-  #print a-h on top and 8-1 on side
 
   def build_grid
     @board.grid.map.with_index do |row, i|
@@ -37,7 +35,7 @@ class Display
   def colors_for(i,j)
     if [i,j] == @cursor_pos
       bg = :red
-    elsif board[[i, j]].flagged
+    elsif [i,j] == @selected || @current_selection.include?([i,j])
       bg = :yellow
     elsif (i+j).odd?
       bg = :light_blue
@@ -54,10 +52,20 @@ class Display
     { background: bg, color: color }
   end
 
+  def selected_valid_moves
+    return [] if selected.nil?
+    board[selected].valid_moves
+  end
+
   def render(errors=[])
     system("clear")
-    build_grid.each {|row| puts row.join}
+    @current_selection = selected_valid_moves
+    grid = build_grid
+    grid.each {|row| puts row.join}
     puts "   A  B  C  D  E  F  G  H"
+
+    @current_selection = []
+
     errors.each do |error|
       puts error
     end
