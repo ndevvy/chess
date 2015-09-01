@@ -28,24 +28,26 @@ class HumanPlayer < Player
         start_pos = @display.get_input
       end
 
-      @board[start_pos].flagged = true
-      highlighted = @board[start_pos].valid_moves || []
-      highlighted.each do |valid|
-        @board[valid].flagged = true
-      end
+      @display.selected = start_pos
 
+      # move to the display
+      # @board[start_pos].flagged = true
+      # highlighted = @board[start_pos].valid_moves || []
+      # highlighted.each do |valid|
+      #   @board[valid].flagged = true
+      # end
 
       until end_pos
         @display.render
         end_pos = @display.get_input
       end
 
-      @board[start_pos].flagged = false
-
-      highlighted.each do |valid|
-        @board[valid].flagged = false
-      end
-
+      # @board[start_pos].flagged = false
+      #
+      # highlighted.each do |valid|
+      #   @board[valid].flagged = false
+      # end
+      @display.selected = nil
       @board.move(start_pos, end_pos)
     rescue BadMoveError
       errors = ["invalid move"]

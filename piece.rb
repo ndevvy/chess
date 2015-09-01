@@ -1,8 +1,6 @@
 require 'byebug'
 
 class Piece
-
-
   attr_reader :color, :board, :directions
   attr_accessor :flagged, :pos, :first_move
 
@@ -98,7 +96,7 @@ class Pawn < Piece
   def to_s
     "\u265F".encode('utf-8')
   end
-
+  
 
 end
 
