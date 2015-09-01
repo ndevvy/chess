@@ -32,34 +32,6 @@ class Board
     # else
     #   board = self
     # end
-
-<<<<<<< 1caa7a8986ec837192eaefa09bb3141e7a8e5672
-    grid[1].each_with_index do |piece, index| # this doesn't work yet
-      place_piece(:black, [1,index], Pawn)
-    end
-
-    grid[6].each_with_index do |piece, index| # ditto
-      place_piece(:white, [6,index], Pawn)
-    end
-
-    place_piece(:black, [0,0], Rook)
-    place_piece(:black, [0,7], Rook)
-    place_piece(:black, [0,1], Knight)
-    place_piece(:black, [0,6], Knight)
-    place_piece(:black, [0,2], Bishop)
-    place_piece(:black, [0,5], Bishop)
-    place_piece(:black, [0,3], Queen)
-    place_piece(:black, [0,4], King)
-
-    place_piece(:white, [7,0], Rook)
-    place_piece(:white, [7,6], Rook)
-    place_piece(:white, [7,1], Knight)
-    place_piece(:white, [7,7], Knight)
-    place_piece(:white, [7,2], Bishop)
-    place_piece(:white, [7,5], Bishop)
-    place_piece(:white, [7,3], Queen)
-    place_piece(:white, [7,4], King)
-=======
     grid[1].each_with_index do |piece, index|
       setup_piece(:black, [1,index], Pawn)
     end
@@ -86,7 +58,7 @@ class Board
     setup_piece(:white, [7,5], Bishop)
     setup_piece(:white, [7,3], Queen)
     setup_piece(:white, [7,4], King)
->>>>>>> add pawn moves
+
 
 
 
