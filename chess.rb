@@ -8,7 +8,7 @@ class Chess
     @board = Board.new
     @player_one = HumanPlayer.new("player1", @board, :white)
     @player_two = HumanPlayer.new("player2", @board, :black)
-    @current_player = player_one
+    @current_player = player_two
   end
 
   def play
