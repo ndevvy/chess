@@ -1,8 +1,10 @@
 require './pieces/pieces-manifest.rb'
 require_relative 'castleable.rb'
+require_relative 'promotable.rb'
 
 class Board
   include Castleable
+  include Promotable
   attr_accessor :grid
 
   def initialize
@@ -20,11 +22,14 @@ class Board
       self[end_pos].first_move = false #refactor - can do both of these lines in 1 method in Piece
 
       if king_castled(start, end_pos)
-        p "the king castled from {#{start} to #{end_pos}}\n"
         king_info = king_castled(start, end_pos)
         move_rook_after_castle(king_info)
-        p "i feel like i moved the rook using #{king_info}"
       end
+
+      if pawn_promoted(end_pos)
+        choose_pawn_promotion(end_pos)
+      end
+
   end
 
 
@@ -40,13 +45,15 @@ class Board
     # else
     #   board = self
     # end
+
+
     grid[1].each_with_index do |piece, index|
       setup_piece(:black, [1,index], Pawn)
     end
 
-    grid[6].each_with_index do |piece, index|
-      setup_piece(:white, [6,index], Pawn)
-    end
+    # grid[6].each_with_index do |piece, index|
+    #   setup_piece(:white, [6,index], Pawn)
+    # end
 
 
     setup_piece(:black, [0,0], Rook)
@@ -58,12 +65,12 @@ class Board
     setup_piece(:black, [0,3], Queen)
     setup_piece(:black, [0,4], King)
 
-    setup_piece(:white, [7,0], Rook)
-    setup_piece(:white, [7,7], Rook)
-    setup_piece(:white, [7,1], Knight)
-    setup_piece(:white, [7,6], Knight)
-    setup_piece(:white, [7,2], Bishop)
-    setup_piece(:white, [7,5], Bishop)
+    # setup_piece(:white, [7,0], Rook)
+    # setup_piece(:white, [7,7], Rook)
+    # setup_piece(:white, [7,1], Knight)
+    # setup_piece(:white, [7,6], Knight)
+    # setup_piece(:white, [7,2], Bishop)
+    # setup_piece(:white, [7,5], Bishop)
     setup_piece(:white, [7,3], Queen)
     setup_piece(:white, [7,4], King)
 
@@ -100,9 +107,6 @@ class Board
         prc.call(el, [r, c]) unless el.is_a?(EmptySquare)
       end
     end
-  end
-
-  def dup # duplicate board and its pieces
   end
 
   def [](pos)

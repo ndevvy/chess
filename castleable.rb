@@ -9,10 +9,8 @@ ROOK_CASTLING_MOVES = {
     output = []
     return false unless self[end_pos].is_a?(King)
     if start[1] - end_pos[1] == -2
-      puts "king moved: #{[start[1], end_pos[1]]}"
       output << :right
     elsif start[1] - end_pos[1] == 2
-      puts "king moved: #{[start[1], end_pos[1]]}"
       output << :left
     else
       false
