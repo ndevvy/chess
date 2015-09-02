@@ -22,7 +22,7 @@ class Display
 
   def build_row(row, i)
     rowstring = "#{8 - i} "
-    row.map.with_index do |piece, j|
+    entire_row = row.map.with_index do |piece, j|
       color_options = colors_for(i,j)
       if j == 0
         rowstring + " #{piece.to_s} ".colorize(color_options)
@@ -30,6 +30,22 @@ class Display
         " #{piece.to_s} ".colorize(color_options)
       end
     end
+
+      if i == 0
+        entire_row += [show_captured_black.map(&:to_s).join.colorize(background: :light_magenta)]
+      elsif i == 7
+        entire_row += [show_captured_white.map(&:to_s).join.colorize(background: :light_magenta)]
+      else
+        entire_row + ["   ".colorize(background: :light_magenta)]
+      end
+  end
+
+  def show_captured_black
+    board.captured_pieces.select { |piece| piece.color == :black }
+  end
+
+  def show_captured_white
+    board.captured_pieces.select { |piece| piece.color == :white }
   end
 
   def colors_for(i,j)
