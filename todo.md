@@ -1,3 +1,4 @@
+* FIX KING DIAG MOVE BUG
 * display captured pcs
 * display turns (use arrow)
 

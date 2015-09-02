@@ -5,16 +5,21 @@ require_relative 'promotable.rb'
 class Board
   include Castleable
   include Promotable
-  attr_accessor :grid
+  attr_accessor :grid, :captured_pieces
 
   def initialize
     @grid = Array.new(8) { Array.new (8) { EmptySquare.new } }
     setup
+    @captured_pieces = []
   end
 
 
   def move(start, end_pos)
       raise BadMoveError.new unless self[start].valid_moves.include?(end_pos)
+
+      if !self[end_pos].is_a?(EmptySquare)
+        @captured_pieces << self[end_pos]
+      end
 
       self[end_pos] = self[start]
       self[start] = EmptySquare.new
