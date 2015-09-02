@@ -33,27 +33,16 @@ class Board
   end
 
 
-  #wishlist:  rook[:white, :right] = [correct coordinates]
-
-  # make a testboard with piece moved
-  # move pc on testboard
-  # in_check?(current color)
-
   def setup
-    # if color == white
-    #   board = self.reverse
-    # else
-    #   board = self
-    # end
 
 
     grid[1].each_with_index do |piece, index|
       setup_piece(:black, [1,index], Pawn)
     end
 
-    # grid[6].each_with_index do |piece, index|
-    #   setup_piece(:white, [6,index], Pawn)
-    # end
+    grid[6].each_with_index do |piece, index|
+      setup_piece(:white, [6,index], Pawn)
+    end
 
 
     setup_piece(:black, [0,0], Rook)
@@ -65,12 +54,12 @@ class Board
     setup_piece(:black, [0,3], Queen)
     setup_piece(:black, [0,4], King)
 
-    # setup_piece(:white, [7,0], Rook)
-    # setup_piece(:white, [7,7], Rook)
-    # setup_piece(:white, [7,1], Knight)
-    # setup_piece(:white, [7,6], Knight)
-    # setup_piece(:white, [7,2], Bishop)
-    # setup_piece(:white, [7,5], Bishop)
+    setup_piece(:white, [7,0], Rook)
+    setup_piece(:white, [7,7], Rook)
+    setup_piece(:white, [7,1], Knight)
+    setup_piece(:white, [7,6], Knight)
+    setup_piece(:white, [7,2], Bishop)
+    setup_piece(:white, [7,5], Bishop)
     setup_piece(:white, [7,3], Queen)
     setup_piece(:white, [7,4], King)
 
