@@ -19,6 +19,7 @@ ROOK_CASTLING_MOVES = {
   end
 
   def move_rook_after_castle(king_info)
+    p [king_info]
     end_pos = ROOK_CASTLING_MOVES[king_info][1]
     start = ROOK_CASTLING_MOVES[king_info][0]
     self[end_pos] = self[start]

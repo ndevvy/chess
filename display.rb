@@ -30,37 +30,37 @@ class Display
         " #{piece.to_s} ".colorize(color_options)
       end
     end
-
-      if i == 0
-        entire_row += [show_captured_black.map(&:to_s).join.colorize(background: :light_magenta)]
-      elsif i == 7
-        entire_row += [show_captured_white.map(&:to_s).join.colorize(background: :light_magenta)]
-      else
-        entire_row + ["   ".colorize(background: :light_magenta)]
-      end
   end
 
-  def show_captured_black
-    board.captured_pieces.select { |piece| piece.color == :black }
-  end
-
-  def show_captured_white
-    board.captured_pieces.select { |piece| piece.color == :white }
-  end
+      # if i == 0
+      #   entire_row += [show_captured_black.map(&:to_s).join.colorize(background: :cyan)]
+      # elsif i == 7
+      #   entire_row += [show_captured_white.map(&:to_s).join.colorize(background: :cyan)]
+      # else
+  #     #   entire_row + ["   ".colorize(background: :light_magenta)]
+  #     # end
+  # #
+  # def show_captured_black
+  #   board.captured_pieces.select { |piece| piece.color == :black }
+  # end
+  #
+  # def show_captured_white
+  #   board.captured_pieces.select { |piece| piece.color == :light_white }
+  # end
 
   def colors_for(i,j)
     if [i,j] == @cursor_pos
-      bg = :red
+      bg = :magenta
     elsif [i,j] == @selected || @current_selection.include?([i,j])
-      bg = :yellow
+      bg = :light_yellow
     elsif (i+j).odd?
-      bg = :light_blue
+      bg = :white
     else
-      bg = :green
+      bg = :light_black
     end
 
     if board[[i,j]].color == :white
-      color = :white
+      color = :light_white
     elsif board[[i,j]].color == :black
       color = :black
     end

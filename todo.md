@@ -1,4 +1,5 @@
 * FIX KING DIAG MOVE BUG
+* stalemate
 * display captured pcs
 * display turns (use arrow)
 
@@ -9,4 +10,3 @@
   * setup hash
 
 * AI
-* stalemate

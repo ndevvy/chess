@@ -27,7 +27,9 @@ class King < Piece
     end
 
     def castle_path(dir)
-      CASTLE_DIFFS[dir].all? { |diff| is_empty_and_in_bounds?(add_diffs(diff)) }
+      CASTLE_DIFFS[dir].all? do
+        |diff| is_empty_and_in_bounds?(add_diffs(diff)) && !move_into_check?(diff) 
+      end
     end
 
     def add_diffs(diff)

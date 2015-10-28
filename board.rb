@@ -39,8 +39,6 @@ class Board
 
 
   def setup
-
-
     grid[1].each_with_index do |piece, index|
       setup_piece(:black, [1,index], Pawn)
     end
